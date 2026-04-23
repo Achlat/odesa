@@ -1,0 +1,823 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ODESA - Organisation pour le Développement Économique et Social en Afrique</title>
+    <meta name="description" content="ODESA accompagne le développement économique et social en Afrique en soutenant les jeunes, les porteurs de projets et l'économie sociale et solidaire.">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css">
+    
+    <script src="https://cdn.tailwindcss.com/3.4.16"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#d97706',
+                        secondary: '#059669'
+                    },
+                    borderRadius: {
+                        'none': '0px',
+                        'sm': '4px',
+                        DEFAULT: '8px',
+                        'md': '12px',
+                        'lg': '16px',
+                        'xl': '20px',
+                        '2xl': '24px',
+                        '3xl': '32px',
+                        'full': '9999px',
+                        'button': '8px'
+                    },
+                    fontFamily: {
+                        'pacifico': ['Pacifico', 'serif'],
+                        'inter': ['Inter', 'sans-serif']
+                    },
+                    animation: {
+                        'slide': 'slide 20s linear infinite',
+                        'fade-in': 'fadeIn 1s ease-in-out',
+                        'float': 'float 6s ease-in-out infinite',
+                    },
+                    keyframes: {
+                        slide: {
+                            '0%': { transform: 'translateX(0)' },
+                            '100%': { transform: 'translateX(-100%)' }
+                        },
+                        fadeIn: {
+                            '0%': { opacity: '0', transform: 'translateY(20px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' }
+                        },
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0px)' },
+                            '50%': { transform: 'translateY(-20px)' }
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        :where([class^="ri-"])::before { content: "\f3c2"; }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            scroll-behavior: smooth;
+        }
+        
+        .hero-bg {
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('1 (1).jpeg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+        
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .animate-on-scroll.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .card-hover {
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        }
+        
+        .card-hover:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+        }
+        
+        .whatsapp-float {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            z-index: 1000;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { 
+                transform: scale(1); 
+                box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7);
+            }
+            50% { 
+                transform: scale(1.1); 
+                box-shadow: 0 0 0 15px rgba(37, 211, 102, 0);
+            }
+        }
+        
+        .nav-sticky {
+            backdrop-filter: blur(20px);
+            background: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, #f59e0b 0%, #d97706 50%, #92400e 100%);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .gradient-bg::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('1 (5).jpeg');
+            background-size: cover;
+            background-position: center;
+            opacity: 0.2;
+            mix-blend-mode: overlay;
+        }
+        
+        .values-bg {
+            background: linear-gradient(135deg, #fef3c7 0%, #fde68a 50%, #fbbf24 100%);
+        }
+        
+        .image-gallery {
+            display: flex;
+            animation: slide 30s linear infinite;
+            gap: 1rem;
+            padding: 1rem 0;
+        }
+        
+        .partner-logo {
+            filter: grayscale(100%);
+            opacity: 0.7;
+            transition: all 0.3s ease;
+        }
+        
+        .partner-logo:hover {
+            filter: grayscale(0%);
+            opacity: 1;
+            transform: scale(1.1);
+        }
+        
+        .stat-card {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+    </style>
+</head>
+<body class="bg-white">
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full z-50 transition-all duration-500" id="navbar">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <div class="flex items-center space-x-4">
+                    <img src="logo.jpg" alt="Logo ODESA" class="h-12 w-auto">
+                    <span class="font-['Pacifico'] text-2xl font-bold text-primary hidden md:block">ODESA</span>
+                </div>
+                
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#accueil" class="text-gray-700 hover:text-primary transition-colors font-medium relative group">
+                        Accueil
+                        <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary group-hover:w-full transition-all duration-300"></span>
+                    </a>
+                    <a href="#apropos" class="text-gray-700 hover:text-primary transition-colors font-medium relative group">
+                        À propos
+                        <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary group-hover:w-full transition-all duration-300"></span>
+                    </a>
+                    <a href="#programmes" class="text-gray-700 hover:text-primary transition-colors font-medium relative group">
+                        Programmes
+                        <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary group-hover:w-full transition-all duration-300"></span>
+                    </a>
+                    <a href="#impact" class="text-gray-700 hover:text-primary transition-colors font-medium relative group">
+                        Impact
+                        <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary group-hover:w-full transition-all duration-300"></span>
+                    </a>
+                    <a href="#partenaires" class="text-gray-700 hover:text-primary transition-colors font-medium relative group">
+                        Partenaires
+                        <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary group-hover:w-full transition-all duration-300"></span>
+                    </a>
+                    <a href="#contact" class="text-gray-700 hover:text-primary transition-colors font-medium relative group">
+                        Contact
+                        <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary group-hover:w-full transition-all duration-300"></span>
+                    </a>
+                </div>
+                
+                <button class="md:hidden w-10 h-10 flex items-center justify-center bg-primary/10 rounded-lg" id="mobileMenuButton">
+                    <i class="ri-menu-line text-xl text-primary"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="accueil" class="hero-bg min-h-screen flex items-center justify-center relative pt-20">
+        <div class="absolute inset-0 bg-gradient-to-b from-black/40 to-black/60"></div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full relative z-10">
+            <div class="text-center text-white animate-on-scroll">
+                <h1 class="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight animate-float">
+                    Ensemble pour l'Afrique<br>
+                    <span class="text-yellow-300">de Demain</span>
+                </h1>
+                <p class="text-xl md:text-2xl mb-10 max-w-3xl mx-auto leading-relaxed font-light">
+                    ODESA accompagne le développement économique et social en Afrique en soutenant les jeunes, 
+                    les porteurs de projets et l'économie sociale et solidaire.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                    <button class="bg-primary hover:bg-orange-600 text-white px-10 py-5 !rounded-button font-semibold text-lg transition-all whitespace-nowrap transform hover:scale-105 shadow-lg hover:shadow-xl">
+                        <i class="ri-play-circle-line mr-2"></i>
+                        Découvrir nos programmes
+                    </button>
+                    <button class="border-2 border-white/50 hover:border-white text-white hover:bg-white/10 px-10 py-5 !rounded-button font-semibold text-lg transition-all whitespace-nowrap backdrop-blur-sm">
+                        <i class="ri-user-add-line mr-2"></i>
+                        Nous rejoindre
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Animated Stats -->
+        <div class="absolute bottom-10 left-0 right-0">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                    <div class="stat-card rounded-lg p-4 text-center text-white animate-on-scroll">
+                        <div class="text-2xl md:text-3xl font-bold mb-1">50+</div>
+                        <div class="text-sm opacity-90">Projets réalisés</div>
+                    </div>
+                    <div class="stat-card rounded-lg p-4 text-center text-white animate-on-scroll">
+                        <div class="text-2xl md:text-3xl font-bold mb-1">1000+</div>
+                        <div class="text-sm opacity-90">Jeunes accompagnés</div>
+                    </div>
+                    <div class="stat-card rounded-lg p-4 text-center text-white animate-on-scroll">
+                        <div class="text-2xl md:text-3xl font-bold mb-1">25+</div>
+                        <div class="text-sm opacity-90">Partenaires</div>
+                    </div>
+                    <div class="stat-card rounded-lg p-4 text-center text-white animate-on-scroll">
+                        <div class="text-2xl md:text-3xl font-bold mb-1">15+</div>
+                        <div class="text-sm opacity-90">Pays d'intervention</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- À propos Section -->
+    <section id="apropos" class="py-20 bg-gradient-to-b from-gray-50 to-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid lg:grid-cols-2 gap-16 items-center">
+                <div class="animate-on-scroll">
+                    <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
+                        Une organisation au cœur<br>
+                        <span class="text-primary">du développement africain</span>
+                    </h2>
+                    <p class="text-lg text-gray-700 mb-6 leading-relaxed">
+                        ODESA (Organisation pour le Développement Économique et Social en Afrique) 
+                        joue le rôle de facilitateur dans la transformation économique et sociale du continent africain.
+                    </p>
+                    <p class="text-lg text-gray-700 mb-8 leading-relaxed">
+                        Notre vision durable et inclusive nous guide dans le renforcement des capacités des acteurs locaux, 
+                        la création d'opportunités et la collaboration avec un vaste réseau de partenaires engagés.
+                    </p>
+                    <div class="space-y-4">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-8 h-8 bg-primary/10 rounded-full flex items-center justify-center">
+                                <i class="ri-check-line text-primary"></i>
+                            </div>
+                            <span class="text-gray-700">Expertise en développement local</span>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <div class="w-8 h-8 bg-primary/10 rounded-full flex items-center justify-center">
+                                <i class="ri-check-line text-primary"></i>
+                            </div>
+                            <span class="text-gray-700">Réseau panafricain étendu</span>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <div class="w-8 h-8 bg-primary/10 rounded-full flex items-center justify-center">
+                                <i class="ri-check-line text-primary"></i>
+                            </div>
+                            <span class="text-gray-700">Approche participative</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="animate-on-scroll">
+                    <div class="grid grid-cols-2 gap-4">
+                        <img src="1 (2).jpeg" alt="Projet communautaire ODESA" 
+                             class="w-full h-64 object-cover rounded-xl shadow-lg">
+                        <img src="1 (3).jpeg" alt="Formation ODESA" 
+                             class="w-full h-64 object-cover rounded-xl shadow-lg mt-8">
+                        <img src="1 (4).jpeg" alt="Équipe ODESA" 
+                             class="w-full h-64 object-cover rounded-xl shadow-lg">
+                        <img src="1 (5).jpeg" alt="Réunion ODESA" 
+                             class="w-full h-64 object-cover rounded-xl shadow-lg mt-8">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Programmes Section -->
+    <section id="programmes" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 animate-on-scroll">
+                <span class="inline-block px-4 py-2 bg-primary/10 text-primary rounded-full font-semibold mb-4">
+                    Nos Domaines d'Intervention
+                </span>
+                <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4">Transformer l'Afrique par l'action</h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                    Nous agissons sur plusieurs fronts pour créer un impact durable et inclusif en Afrique
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="bg-white rounded-2xl p-8 card-hover animate-on-scroll">
+                    <div class="w-16 h-16 bg-gradient-to-br from-primary/20 to-primary/10 rounded-xl flex items-center justify-center mb-6">
+                        <i class="ri-team-line text-3xl text-primary"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-gray-900 mb-4">Accompagnement des jeunes</h3>
+                    <p class="text-gray-600 leading-relaxed mb-6">
+                        Nous soutenons les jeunes leaders et entrepreneurs africains dans leurs projets 
+                        d'innovation et de développement économique.
+                    </p>
+                    <div class="flex items-center text-primary font-semibold">
+                        <span>Découvrir</span>
+                        <i class="ri-arrow-right-line ml-2"></i>
+                    </div>
+                </div>
+                
+                <div class="bg-white rounded-2xl p-8 card-hover animate-on-scroll">
+                    <div class="w-16 h-16 bg-gradient-to-br from-secondary/20 to-secondary/10 rounded-xl flex items-center justify-center mb-6">
+                        <i class="ri-plant-line text-3xl text-secondary"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-gray-900 mb-4">Économie sociale et solidaire</h3>
+                    <p class="text-gray-600 leading-relaxed mb-6">
+                        Promotion d'un modèle économique durable qui place l'humain et l'environnement 
+                        au centre des préoccupations.
+                    </p>
+                    <div class="flex items-center text-secondary font-semibold">
+                        <span>En savoir plus</span>
+                        <i class="ri-arrow-right-line ml-2"></i>
+                    </div>
+                </div>
+                
+                <div class="bg-white rounded-2xl p-8 card-hover animate-on-scroll">
+                    <div class="w-16 h-16 bg-gradient-to-br from-yellow-500/20 to-yellow-500/10 rounded-xl flex items-center justify-center mb-6">
+                        <i class="ri-graduation-cap-line text-3xl text-yellow-600"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-gray-900 mb-4">Renforcement des capacités</h3>
+                    <p class="text-gray-600 leading-relaxed mb-6">
+                        Formation et accompagnement des acteurs locaux pour développer leurs compétences 
+                        et leur autonomie.
+                    </p>
+                    <div class="flex items-center text-yellow-600 font-semibold">
+                        <span>Explorer</span>
+                        <i class="ri-arrow-right-line ml-2"></i>
+                    </div>
+                </div>
+                
+                <div class="bg-white rounded-2xl p-8 card-hover animate-on-scroll">
+                    <div class="w-16 h-16 bg-gradient-to-br from-blue-500/20 to-blue-500/10 rounded-xl flex items-center justify-center mb-6">
+                        <i class="ri-lightbulb-line text-3xl text-blue-600"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-gray-900 mb-4">Innovation et projets</h3>
+                    <p class="text-gray-600 leading-relaxed mb-6">
+                        Soutien aux initiatives citoyennes et aux projets innovants qui transforment 
+                        les communautés africaines.
+                    </p>
+                    <div class="flex items-center text-blue-600 font-semibold">
+                        <span>Voir les projets</span>
+                        <i class="ri-arrow-right-line ml-2"></i>
+                    </div>
+                </div>
+                
+                <div class="bg-white rounded-2xl p-8 card-hover animate-on-scroll">
+                    <div class="w-16 h-16 bg-gradient-to-br from-purple-500/20 to-purple-500/10 rounded-xl flex items-center justify-center mb-6">
+                        <i class="ri-global-line text-3xl text-purple-600"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-gray-900 mb-4">Réseautage international</h3>
+                    <p class="text-gray-600 leading-relaxed mb-6">
+                        Création de ponts entre l'Afrique et le monde pour favoriser les échanges 
+                        et les partenariats stratégiques.
+                    </p>
+                    <div class="flex items-center text-purple-600 font-semibold">
+                        <span>Découvrir le réseau</span>
+                        <i class="ri-arrow-right-line ml-2"></i>
+                    </div>
+                </div>
+                
+                <div class="bg-white rounded-2xl p-8 card-hover animate-on-scroll">
+                    <div class="w-16 h-16 bg-gradient-to-br from-red-500/20 to-red-500/10 rounded-xl flex items-center justify-center mb-6">
+                        <i class="ri-community-line text-3xl text-red-600"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-gray-900 mb-4">Projets communautaires</h3>
+                    <p class="text-gray-600 leading-relaxed mb-6">
+                        Développement de projets qui répondent aux besoins spécifiques des communautés 
+                        locales africaines.
+                    </p>
+                    <div class="flex items-center text-red-600 font-semibold">
+                        <span>Voir les réalisations</span>
+                        <i class="ri-arrow-right-line ml-2"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Impact Section -->
+    <section id="impact" class="py-20 values-bg">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 animate-on-scroll">
+                <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4">Nos valeurs fondamentales</h2>
+                <p class="text-xl text-gray-700 max-w-3xl mx-auto">
+                    Les principes qui guident notre action quotidienne et font notre différence
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div class="bg-white rounded-2xl p-8 text-center animate-on-scroll transform hover:-translate-y-2 transition-all duration-300">
+                    <div class="w-20 h-20 bg-primary/10 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-lg">
+                        <i class="ri-heart-3-line text-4xl text-primary"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-gray-900 mb-4">Solidarité</h3>
+                    <p class="text-gray-700">
+                        L'entraide et la coopération au service du développement collectif et durable
+                    </p>
+                </div>
+                
+                <div class="bg-white rounded-2xl p-8 text-center animate-on-scroll transform hover:-translate-y-2 transition-all duration-300">
+                    <div class="w-20 h-20 bg-secondary/10 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-lg">
+                        <i class="ri-rocket-2-line text-4xl text-secondary"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-gray-900 mb-4">Innovation</h3>
+                    <p class="text-gray-700">
+                        La créativité et l'adaptation pour répondre aux défis contemporains avec agilité
+                    </p>
+                </div>
+                
+                <div class="bg-white rounded-2xl p-8 text-center animate-on-scroll transform hover:-translate-y-2 transition-all duration-300">
+                    <div class="w-20 h-20 bg-yellow-500/10 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-lg">
+                        <i class="ri-hand-heart-line text-4xl text-yellow-600"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-gray-900 mb-4">Engagement</h3>
+                    <p class="text-gray-700">
+                        La détermination et la persévérance dans la réalisation de nos missions
+                    </p>
+                </div>
+                
+                <div class="bg-white rounded-2xl p-8 text-center animate-on-scroll transform hover:-translate-y-2 transition-all duration-300">
+                    <div class="w-20 h-20 bg-blue-500/10 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-lg">
+                        <i class="ri-trophy-line text-4xl text-blue-600"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-gray-900 mb-4">Impact social</h3>
+                    <p class="text-gray-700">
+                        La mesure concrète et transparente de nos actions sur les communautés
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Galerie d'images -->
+    <div class="py-12 bg-gray-50 overflow-hidden">
+        <div class="relative">
+            <div class="image-gallery">
+                <!-- Duplication des images pour l'animation continue -->
+                <img src="1 (6).jpeg" alt="Projet ODESA 1" class="h-64 w-auto object-cover rounded-xl">
+                <img src="1 (7).jpeg" alt="Projet ODESA 2" class="h-64 w-auto object-cover rounded-xl">
+                <img src="1 (8).jpeg" alt="Projet ODESA 3" class="h-64 w-auto object-cover rounded-xl">
+                <img src="1 (9).jpeg" alt="Projet ODESA 4" class="h-64 w-auto object-cover rounded-xl">
+                <img src="1 (10).jpeg" alt="Projet ODESA 5" class="h-64 w-auto object-cover rounded-xl">
+                <img src="1 (11).jpeg" alt="Projet ODESA 6" class="h-64 w-auto object-cover rounded-xl">
+                <img src="1 (12).jpeg" alt="Projet ODESA 7" class="h-64 w-auto object-cover rounded-xl">
+                <img src="1 (13).jpeg" alt="Projet ODESA 8" class="h-64 w-auto object-cover rounded-xl">
+                <!-- Duplication pour animation continue -->
+                <img src="1 (6).jpeg" alt="Projet ODESA 1" class="h-64 w-auto object-cover rounded-xl">
+                <img src="1 (7).jpeg" alt="Projet ODESA 2" class="h-64 w-auto object-cover rounded-xl">
+                <img src="1 (8).jpeg" alt="Projet ODESA 3" class="h-64 w-auto object-cover rounded-xl">
+                <img src="1 (9).jpeg" alt="Projet ODESA 4" class="h-64 w-auto object-cover rounded-xl">
+            </div>
+        </div>
+    </div>
+
+    <!-- Partenaires Section -->
+    <section id="partenaires" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 animate-on-scroll">
+                <span class="inline-block px-4 py-2 bg-secondary/10 text-secondary rounded-full font-semibold mb-4">
+                    Notre Réseau
+                </span>
+                <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4">Nos partenaires stratégiques</h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                    Un réseau solide d'institutions et d'organisations engagées pour le développement de l'Afrique
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
+                <div class="bg-gradient-to-br from-gray-50 to-white rounded-2xl p-8 text-center card-hover animate-on-scroll">
+                    <div class="w-20 h-20 bg-primary/10 rounded-2xl flex items-center justify-center mx-auto mb-6">
+                        <i class="ri-building-4-line text-3xl text-primary"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3">ABEWE</h3>
+                    <p class="text-gray-600 mb-4">Partenaire institutionnel principal</p>
+                    <div class="text-sm text-primary font-semibold">En savoir plus →</div>
+                </div>
+                
+                <div class="bg-gradient-to-br from-gray-50 to-white rounded-2xl p-8 text-center card-hover animate-on-scroll">
+                    <div class="w-20 h-20 bg-secondary/10 rounded-2xl flex items-center justify-center mx-auto mb-6">
+                        <i class="ri-flag-2-line text-3xl text-secondary"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3">France Volontaires</h3>
+                    <p class="text-gray-600 mb-4">Coopération internationale et échanges</p>
+                    <div class="text-sm text-secondary font-semibold">En savoir plus →</div>
+                </div>
+                
+                <div class="bg-gradient-to-br from-gray-50 to-white rounded-2xl p-8 text-center card-hover animate-on-scroll">
+                    <div class="w-20 h-20 bg-blue-500/10 rounded-2xl flex items-center justify-center mx-auto mb-6">
+                        <i class="ri-government-line text-3xl text-blue-600"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3">Institutions publiques</h3>
+                    <p class="text-gray-600 mb-4">Partenariats avec les gouvernements africains</p>
+                    <div class="text-sm text-blue-600 font-semibold">En savoir plus →</div>
+                </div>
+                
+                <div class="bg-gradient-to-br from-gray-50 to-white rounded-2xl p-8 text-center card-hover animate-on-scroll">
+                    <div class="w-20 h-20 bg-purple-500/10 rounded-2xl flex items-center justify-center mx-auto mb-6">
+                        <i class="ri-earth-line text-3xl text-purple-600"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3">Organisations internationales</h3>
+                    <p class="text-gray-600 mb-4">Réseau mondial de développement</p>
+                    <div class="text-sm text-purple-600 font-semibold">En savoir plus →</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-20 gradient-bg relative">
+        <div class="absolute inset-0 bg-black/40"></div>
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
+            <div class="animate-on-scroll">
+                <h2 class="text-4xl md:text-5xl font-bold text-white mb-6">
+                    Rejoignez le mouvement<br>
+                    pour l'Afrique de demain
+                </h2>
+                <p class="text-xl text-white/90 mb-10 leading-relaxed max-w-3xl mx-auto">
+                    Ensemble, construisons un avenir prospère et durable pour le continent africain. 
+                    Découvrez comment vous pouvez contribuer à notre mission et faire partie du changement.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-6 justify-center">
+                    <button class="bg-white hover:bg-gray-100 text-primary px-10 py-5 !rounded-button font-bold text-lg transition-all transform hover:scale-105 shadow-2xl">
+                        <i class="ri-play-circle-line mr-3"></i>
+                        Découvrir nos programmes
+                    </button>
+                    <button class="border-2 border-white/50 hover:border-white text-white hover:bg-white/20 px-10 py-5 !rounded-button font-bold text-lg transition-all backdrop-blur-sm">
+                        <i class="ri-handshake-line mr-3"></i>
+                        Devenir partenaire
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contact" class="bg-gray-900 text-white py-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-10 mb-12">
+                <div>
+                    <div class="flex items-center space-x-4 mb-8">
+                        <img src="logo.jpg" alt="Logo ODESA" class="h-14 w-auto">
+                        <span class="font-['Pacifico'] text-2xl font-bold text-primary">ODESA</span>
+                    </div>
+                    <p class="text-gray-300 mb-8 leading-relaxed text-lg">
+                        Organisation pour le Développement Économique et Social en Afrique. 
+                        Ensemble pour un avenir prospère et durable.
+                    </p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="w-12 h-12 bg-primary/20 hover:bg-primary/30 rounded-xl flex items-center justify-center transition-all transform hover:scale-110">
+                            <i class="ri-facebook-fill text-xl text-primary"></i>
+                        </a>
+                        <a href="#" class="w-12 h-12 bg-primary/20 hover:bg-primary/30 rounded-xl flex items-center justify-center transition-all transform hover:scale-110">
+                            <i class="ri-twitter-fill text-xl text-primary"></i>
+                        </a>
+                        <a href="#" class="w-12 h-12 bg-primary/20 hover:bg-primary/30 rounded-xl flex items-center justify-center transition-all transform hover:scale-110">
+                            <i class="ri-linkedin-fill text-xl text-primary"></i>
+                        </a>
+                        <a href="#" class="w-12 h-12 bg-primary/20 hover:bg-primary/30 rounded-xl flex items-center justify-center transition-all transform hover:scale-110">
+                            <i class="ri-instagram-fill text-xl text-primary"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h3 class="text-xl font-bold mb-8 text-white">Liens rapides</h3>
+                    <ul class="space-y-4">
+                        <li><a href="#accueil" class="text-gray-300 hover:text-primary transition-colors flex items-center group">
+                            <i class="ri-arrow-right-s-line opacity-0 group-hover:opacity-100 transition-opacity mr-2"></i>
+                            Accueil
+                        </a></li>
+                        <li><a href="#apropos" class="text-gray-300 hover:text-primary transition-colors flex items-center group">
+                            <i class="ri-arrow-right-s-line opacity-0 group-hover:opacity-100 transition-opacity mr-2"></i>
+                            À propos
+                        </a></li>
+                        <li><a href="#programmes" class="text-gray-300 hover:text-primary transition-colors flex items-center group">
+                            <i class="ri-arrow-right-s-line opacity-0 group-hover:opacity-100 transition-opacity mr-2"></i>
+                            Programmes
+                        </a></li>
+                        <li><a href="#partenaires" class="text-gray-300 hover:text-primary transition-colors flex items-center group">
+                            <i class="ri-arrow-right-s-line opacity-0 group-hover:opacity-100 transition-opacity mr-2"></i>
+                            Partenaires
+                        </a></li>
+                        <li><a href="#contact" class="text-gray-300 hover:text-primary transition-colors flex items-center group">
+                            <i class="ri-arrow-right-s-line opacity-0 group-hover:opacity-100 transition-opacity mr-2"></i>
+                            Contact
+                        </a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-xl font-bold mb-8 text-white">Nos programmes</h3>
+                    <ul class="space-y-4">
+                        <li><a href="#" class="text-gray-300 hover:text-primary transition-colors">Jeunesse africaine et entrepreneuriat</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-primary transition-colors">Économie sociale et solidaire</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-primary transition-colors">Formation et renforcement de capacités</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-primary transition-colors">Innovation et projets communautaires</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-primary transition-colors">Réseautage international</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-xl font-bold mb-8 text-white">Contactez-nous</h3>
+                    <div class="space-y-6">
+                        <div class="flex items-start space-x-4">
+                            <div class="w-10 h-10 bg-primary/20 rounded-lg flex items-center justify-center flex-shrink-0">
+                                <i class="ri-mail-line text-primary"></i>
+                            </div>
+                            <div>
+                                <div class="font-semibold">Email</div>
+                                <div class="text-gray-300 mt-1">contact@odesa-afrique.org</div>
+                            </div>
+                        </div>
+                        <div class="flex items-start space-x-4">
+                            <div class="w-10 h-10 bg-primary/20 rounded-lg flex items-center justify-center flex-shrink-0">
+                                <i class="ri-phone-line text-primary"></i>
+                            </div>
+                            <div>
+                                <div class="font-semibold">Téléphone</div>
+                                <div class="text-gray-300 mt-1">+33 1 23 45 67 89</div>
+                            </div>
+                        </div>
+                        <div class="flex items-start space-x-4">
+                            <div class="w-10 h-10 bg-primary/20 rounded-lg flex items-center justify-center flex-shrink-0">
+                                <i class="ri-map-pin-line text-primary"></i>
+                            </div>
+                            <div>
+                                <div class="font-semibold">Bureaux</div>
+                                <div class="text-gray-300 mt-1">
+                                    Paris, France<br>
+                                    Dakar, Sénégal
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-800 pt-8">
+                <div class="flex flex-col md:flex-row justify-between items-center">
+                    <p class="text-gray-400 text-base">
+                        © 2026 ODESA - Organisation pour le Développement Économique et Social en Afrique. Tous droits réservés.
+                    </p>
+                    <div class="flex space-x-8 mt-4 md:mt-0">
+                        <a href="#" class="text-gray-400 hover:text-primary transition-colors text-base">Mentions légales</a>
+                        <a href="#" class="text-gray-400 hover:text-primary transition-colors text-base">Politique de confidentialité</a>
+                        <a href="#" class="text-gray-400 hover:text-primary transition-colors text-base">CGU</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- WhatsApp Float -->
+    <div class="whatsapp-float">
+        <a href="https://wa.me/33123456789" target="_blank" class="bg-green-500 hover:bg-green-600 text-white w-16 h-16 rounded-full flex items-center justify-center shadow-2xl transition-all transform hover:scale-110">
+            <i class="ri-whatsapp-fill text-3xl"></i>
+        </a>
+    </div>
+
+    <!-- Scripts -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Navbar scroll effect
+            const navbar = document.getElementById('navbar');
+            
+            function updateNavbar() {
+                if (window.scrollY > 50) {
+                    navbar.classList.add('nav-sticky', 'shadow-lg');
+                } else {
+                    navbar.classList.remove('nav-sticky', 'shadow-lg');
+                }
+            }
+            
+            window.addEventListener('scroll', updateNavbar);
+            updateNavbar();
+            
+            // Smooth scroll
+            const links = document.querySelectorAll('a[href^="#"]');
+            
+            links.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+                    
+                    if (targetElement) {
+                        const offsetTop = targetElement.offsetTop - 100;
+                        window.scrollTo({
+                            top: offsetTop,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+            
+            // Scroll animations
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -100px 0px'
+            };
+            
+            const observer = new IntersectionObserver(function(entries) {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, observerOptions);
+            
+            const animatedElements = document.querySelectorAll('.animate-on-scroll');
+            animatedElements.forEach(el => observer.observe(el));
+            
+            // Counter animation for stats
+            const statNumbers = document.querySelectorAll('.stat-card .text-2xl, .stat-card .text-3xl');
+            
+            const statObserver = new IntersectionObserver(function(entries) {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const element = entry.target;
+                        const finalValue = parseInt(element.textContent);
+                        let currentValue = 0;
+                        const increment = finalValue / 50;
+                        
+                        const timer = setInterval(() => {
+                            currentValue += increment;
+                            if (currentValue >= finalValue) {
+                                element.textContent = finalValue + '+';
+                                clearInterval(timer);
+                            } else {
+                                element.textContent = Math.floor(currentValue) + '+';
+                            }
+                        }, 30);
+                        
+                        statObserver.unobserve(element);
+                    }
+                });
+            }, { threshold: 0.5 });
+            
+            statNumbers.forEach(stat => statObserver.observe(stat));
+            
+            // Mobile menu toggle
+            const mobileMenuButton = document.getElementById('mobileMenuButton');
+            mobileMenuButton.addEventListener('click', function() {
+                alert('Menu mobile - En cours de développement');
+            });
+            
+            // Button hover effects
+            const buttons = document.querySelectorAll('button');
+            buttons.forEach(button => {
+                button.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-2px)';
+                });
+                button.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0)';
+                });
+            });
+        });
+        
+        // Parallax effect
+        window.addEventListener('scroll', function() {
+            const scrolled = window.pageYOffset;
+            const parallaxElements = document.querySelectorAll('.hero-bg');
+            
+            parallaxElements.forEach(element => {
+                const rate = scrolled * -0.5;
+                element.style.transform = `translate3d(0, ${rate}px, 0)`;
+            });
+        });
+    </script>
+</body>
+</html>
